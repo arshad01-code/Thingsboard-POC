@@ -6,6 +6,7 @@ def retry_execution(function, max_retries=5):
 
     while retry_count < max_retries:
         try:
+            print("Retry count", retry_count)
             return function()
         except Exception as exc:
             retry_count += 1
