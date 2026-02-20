@@ -31,7 +31,7 @@ def send_device_data(token: str, device_index: int):
         print("Finished.")
     """    
 
-    def publish(device_name, token):
+    def publish():
         url = f"https://{BROKER}/api/v1/{token}/telemetry"
         data = generate_telemetry(
             device_name=device_name
