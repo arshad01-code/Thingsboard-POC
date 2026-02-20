@@ -1,24 +1,28 @@
-name: IoT Simulation
+name: IoT Simulator
 
 on:
+  workflow_dispatch:        # manual trigger
   schedule:
-    - cron: "*/5 * * * *
-  workflow_dispatch:
+    - cron: "*/15 * * * *"  # runs every 15 minutes (optional)
 
 jobs:
-  run-simulator:
+  simulate:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Build Docker Image
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
         run: docker build -t iot-simulator .
 
-      - name: Run Container
+      - name: Run IoT Simulator Container
         run: |
-          docker run \
-            -e DEVICE_1_TOKEN=${{ secrets.DEVICE_1_TOKEN }} \
-            -e DEVICE_2_TOKEN=${{ secrets.DEVICE_2_TOKEN }} \
-            -e DEVICE_3_TOKEN=${{ secrets.DEVICE_3_TOKEN }} \
+          docker run --rm \
+            -e DEVICE_1_TOKEN="${{ secrets.DEVICE_1_TOKEN }}" \
+            -e DEVICE_2_TOKEN="${{ secrets.DEVICE_2_TOKEN }}" \
+            -e DEVICE_3_TOKEN="${{ secrets.DEVICE_3_TOKEN }}" \
             iot-simulator
