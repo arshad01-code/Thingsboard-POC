@@ -1,6 +1,7 @@
 name: IoT Simulator
 
 on:
+  push:
   workflow_dispatch:        # manual trigger
   schedule:
     - cron: "*/15 * * * *"  # runs every 15 minutes (optional)
