@@ -21,6 +21,7 @@ def send_device_data(token: str, device_index: int):
             payload=json.dumps(data),
             qos=1
         )
+        print("Waiting for publish")
 
         result.wait_for_publish()
         print(f"SUCCESS: {device_name} -> {data}")
