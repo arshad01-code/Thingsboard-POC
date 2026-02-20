@@ -3,11 +3,22 @@ import ssl
 from app.config import BROKER, PORT
 
 def create_client(token: str) -> mqtt.Client:
+    def on_connect(client, userdata, flags, rc):
+        print("Connected with result code:", rc)
+
+    def on_publish(client, userdata, mid):
+        print("Message published:", mid)
+
     client = mqtt.Client()
     client.username_pw_set(token)
 
     # TLS encryption
     client.tls_set(cert_reqs=ssl.CERT_REQUIRED)
+
+    client.on_connect = on_connect
+    client.on_publish = on_publish
+
+    print("Connecting to ThingsBoard...")
     client.connect(
         host=BROKER, port=PORT, keepalive=60
     )

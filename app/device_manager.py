@@ -15,6 +15,7 @@ def send_device_data(token: str, device_index: int):
             device_name=device_name
         )
 
+        print("Sending payload:", data)
         result = client.publish(
             topic="v1/devices/me/telemetry",
             payload=json.dumps(data),
@@ -24,6 +25,7 @@ def send_device_data(token: str, device_index: int):
         result.wait_for_publish()
         print(f"SUCCESS: {device_name} -> {data}")
         client.disconnect()
+        print("Finished.")
 
     retry_execution(publish, MAX_RETRIES)
 
