@@ -1,0 +1,24 @@
+name: IoT Simulation
+
+on:
+  schedule:
+    - cron: "*/5 * * * *
+  workflow_dispatch:
+
+jobs:
+  run-simulator:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: docker build -t iot-simulator .
+
+      - name: Run Container
+        run: |
+          docker run \
+            -e DEVICE_1_TOKEN=${{ secrets.DEVICE_1_TOKEN }} \
+            -e DEVICE_2_TOKEN=${{ secrets.DEVICE_2_TOKEN }} \
+            -e DEVICE_3_TOKEN=${{ secrets.DEVICE_3_TOKEN }} \
+            iot-simulator
