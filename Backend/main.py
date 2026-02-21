@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from db.database import engine
-from db.models import Base
+from database.database import engine
+from database.models import Base
 from api import auth, dashboards, devices
 
 app = FastAPI(title="IoT Dashboard SaaS")
