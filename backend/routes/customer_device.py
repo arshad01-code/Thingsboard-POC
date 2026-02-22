@@ -14,7 +14,7 @@ def get_db():
 
 # Map Device to Customer
 @router.post("/customers/{customer_id}/devices/{device_id}")
-def map_device(customer_id: int, device_id: int, db: Session = Depends(get_db)):
+def map_device(customer_id: str, device_id: str, db: Session = Depends(get_db)):
 
     mapping = CustomerDevice(
         customer_id=customer_id,
@@ -29,7 +29,7 @@ def map_device(customer_id: int, device_id: int, db: Session = Depends(get_db)):
 
 # Unmap
 @router.delete("/customers/{customer_id}/devices/{device_id}")
-def unmap_device(customer_id: int, device_id: int, db: Session = Depends(get_db)):
+def unmap_device(customer_id: str, device_id: str, db: Session = Depends(get_db)):
 
     mapping = db.query(CustomerDevice).filter_by(
         customer_id=customer_id,

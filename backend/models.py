@@ -20,5 +20,5 @@ class CustomerDevice(Base):
     __tablename__ = "customer_devices"
 
     id = Column(Integer, primary_key=True)
-    customer_id = Column(Integer, ForeignKey("customers.id", ondelete="CASCADE"))
-    device_id = Column(Integer, ForeignKey("devices.id", ondelete="CASCADE"))
+    customer_id = Column(String, ForeignKey("customers.id", ondelete="CASCADE"))
+    device_id = Column(String, ForeignKey("devices.id", ondelete="CASCADE"))
