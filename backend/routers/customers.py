@@ -17,11 +17,13 @@ def create_customer(
     db: Session = Depends(get_db)
 ):
     new_cust_id =  tb.create_tb_customer(
-        customer_name=customer.name
+        customer_name=customer.name,
+        email=customer.email
     )
     new_cust: Customer = Customer(
         name=customer.name,
-        tb_customer_id=new_cust_id
+        tb_customer_id=new_cust_id,
+        email=customer.email
     )
     db.add(new_cust)
     db.commit()
